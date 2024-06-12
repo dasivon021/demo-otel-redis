@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+
+  redis-db:
+    container_name: redis_db
+    image: "redis/redis-stack"
+    ports:
+      - "6379:6379"
+    environment:
+      - "REDIS_ARGS=--appendonly yes"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  grafana-otlp-lgtm:
+    image: grafana/otel-lgtm
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "3000:3000"
